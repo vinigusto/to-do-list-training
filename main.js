@@ -1,5 +1,6 @@
 import { tasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './js/task-service.js';
 import { appConfig } from './js/app-config.js';
+import { createHelpButton, createAdvancedEditSection } from './js/ui-service.js';
 
 // ===== ELEMENTOS DOM ======
 const taskInput = document.getElementById('taskInput');
@@ -12,46 +13,14 @@ const advancedSection = document.getElementById('advanced-section');
 // ===== INICIALIZAR FEATURES ======
 function initializeFeatures() {
     if (appConfig.features.helpButton) {
-        createHelpButton();
+        createHelpButton(headerActions);
     }
 
     if (appConfig.features.advancedEdit) {
-        createAdvancedEditSection();
+        createAdvancedEditSection(advancedSection);
     }
 
     console.log('Features ativadas:', appConfig.features);
-}
-
-// ===== FUNÇÕES AUXILIARES ======
-function createHelpButton() {
-    const helpBtn = document.createElement('button');
-    helpBtn.className = 'btn btn-help';
-    helpBtn.innerText = 'Ajuda';
-    helpBtn.style.marginBottom = '10px';
-
-    helpBtn.onclick = () => {alert(`
-        To-Do List v${appConfig.app.version}
-
-        Como usar:
-        1. Digite sua tarefa no campo acima
-        2. Clique em "Adicionar Tarefa"
-        3. Marque tarefas como concluídas clicando em "COMPLETAR"
-        4. Delete tarefas com o botão "REMOVER"
-    `)};
-
-    headerActions.appendChild(helpBtn);
-};
-
-function createAdvancedEditSection() {
-    const section = document.createElement('div');
-    section.className = 'advanced-edit-panel';
-    section.innerHTML = `
-        <h3>Edição Avançada</h3>
-        <p>Opções extras para gerenciar suas tarefas:</p>
-        <button class="btn" onclick="alert('Duplicar tarefa em desenvolvimento')">Duplicar Tarefa</button>
-        <button class="btn" onclick="alert('Agendar tarefa em desenvolvimento')">Agendar</button>
-    `;
-    advancedSection.appendChild(section);
 }
 
 // ===== RENDERIZAÇÃO / LÓGICA DE TAREFAS ======
