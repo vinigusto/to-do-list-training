@@ -18,7 +18,41 @@
     padding: 0;
 }
 
+/* Botão de Ajuda */
+.btn-help {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 14px;
+}
 
+.btn-help:hover {
+    background-color: #138496;
+}
+
+/* Seção de Edição Avançada */
+.advanced-edit-panel {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+    border-radius: 4px;
+}
+
+.advanced-edit-panel h3 {
+    margin-top: 0;
+    color: #007bff;
+}
+
+.advanced-edit-panel .btn {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+/* Corpo da Página */
 body {
     font-family: var(--font-family);
     background-color: var(--bg-color);

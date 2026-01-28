@@ -1,6 +1,15 @@
 export const appConfig = {
-    useExternalApi: false, // Mudar entre Modo Demo vs Modo Real
-    showHelpButton: true,  // Feature Flag para botão de ajuda
+    features: {
+        useExternalApi: false,
+        helpButton: true,
+        advancedEdit: false,
+    },
+
+    app: {
+        version: '0.3.0',
+        name: 'To-Do List App'
+    },
+
     branding: {
         roundness: '8px'
     }
