@@ -4,11 +4,11 @@ export const appConfig = {
     features: {
         useExternalApi: false,
         helpButton: true,
-        advancedEdit: true,
+        advancedEdit: false,
     },
 
     app: {
-        version: '0.4.0',
+        version: '0.5.0',
         name: 'To-Do List App'
     },
 

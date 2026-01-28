@@ -1,6 +1,7 @@
 import { tasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './js/task-service.js';
 import { appConfig } from './js/app-config.js';
 import { createHelpButton, createAdvancedEditSection } from './js/ui-service.js';
+import { loadTasks } from './js/storage-service.js';
 
 // ===== ELEMENTOS DOM ======
 const taskInput = document.getElementById('taskInput');
@@ -9,6 +10,7 @@ const taskList = document.getElementById('taskList');
 const completedTaskList = document.getElementById('completedTaskList');
 const headerActions = document.getElementById('header-actions');
 const advancedSection = document.getElementById('advanced-section');
+
 
 // ===== INICIALIZAR FEATURES ======
 function initializeFeatures() {
@@ -24,7 +26,6 @@ function initializeFeatures() {
 }
 
 // ===== RENDERIZAÇÃO / LÓGICA DE TAREFAS ======
-
 function renderTasks() {
     taskList.innerHTML = '';
     completedTaskList.innerHTML = '';
@@ -86,5 +87,10 @@ addTaskBtn.addEventListener('click', () => {
 });
 
 // ===== INICIALIZAÇÃO ======
-initializeFeatures();
-renderTasks();
+function initializeApp(){
+    loadTasks();
+    initializeFeatures();
+    renderTasks();
+}
+
+initializeApp();
