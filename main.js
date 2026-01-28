@@ -1,7 +1,7 @@
-import { tasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './js/task-service.js';
+import { tasks, initializeTasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './js/task-service.js';
 import { appConfig } from './js/app-config.js';
 import { createHelpButton, createAdvancedEditSection } from './js/ui-service.js';
-import { loadTasks } from './js/storage-service.js';
+import { applyBrandingToCSS } from './js/branding-service.js';
 
 // ===== ELEMENTOS DOM ======
 const taskInput = document.getElementById('taskInput');
@@ -10,7 +10,6 @@ const taskList = document.getElementById('taskList');
 const completedTaskList = document.getElementById('completedTaskList');
 const headerActions = document.getElementById('header-actions');
 const advancedSection = document.getElementById('advanced-section');
-
 
 // ===== INICIALIZAR FEATURES ======
 function initializeFeatures() {
@@ -87,8 +86,10 @@ addTaskBtn.addEventListener('click', () => {
 });
 
 // ===== INICIALIZAÇÃO ======
-function initializeApp(){
-    loadTasks();
+async function initializeApp(){
+    console.log(`Iniciando To-Do List v${appConfig.app.version}`);
+    await initializeTasks();
+    applyBrandingToCSS();
     initializeFeatures();
     renderTasks();
 }

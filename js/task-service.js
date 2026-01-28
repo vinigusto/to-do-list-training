@@ -1,6 +1,31 @@
 import { saveTasks, loadTasks } from './storage-service.js';
+import { apiService } from './api-service.js';
+import { appConfig } from './app-config.js';
 
-export let tasks = loadTasks();
+export const tasks = [];
+
+export async function initializeTasks() {
+    const initialTasks = [];
+    if(appConfig.features.useExternalApi) {
+        try {
+            const apiTasks = await apiService.fetchTasks();
+            initialTasks.push(...apiTasks.map(task => ({
+                id: task.id,
+                text: task.todo ?? task.title ?? 'Tarefa sem descrição',
+                completed: task.completed
+            })));
+        } catch (error) {
+            console.error('Erro ao buscar tarefas da API externa:', error);
+            const storedTasks = loadTasks();
+            initialTasks.push(...storedTasks);
+        }
+    } else {
+        const storedTasks = loadTasks();
+        initialTasks.push(...storedTasks);
+    }
+    tasks.push(...initialTasks);
+    saveTasks(tasks);
+}
 
 export function addTaskToArray(text) {
     if (!text || text.trim() === '') {
@@ -45,4 +70,5 @@ export function getTasks() {
 
 export function clearTasks() {
     tasks.length = 0;
+    saveTasks(tasks);
 }
