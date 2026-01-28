@@ -1,8 +1,68 @@
 :root {
     --primary-color: #007bff;
+    --primary-hover: #0056b3;
+    --success-color: #28a745;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333;
+    --text-light: #777;
     --border-radius: 8px;
     --font-family: 'Segoe UI', Tahoma, sans-serif;
-    --success-color: #28a745;
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--card-bg);
+    max-width: 600px;
+    width: 90%;
+    margin: 3rem auto;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+}
+
+h1, h2 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.text-version-update {
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    list-style-type: disc;
+    padding-left: 1.5rem;
 }
 
 #taskList {
@@ -15,42 +75,113 @@
     padding: 0% 1% 3% 3%;
 }
 
+/* Listas */
+#taskList, #completedTaskList {
+    list-style-type: none;
+    margin-top: 1rem;
+}
+
+/* Itens da Tarefa */
 .task-item {
     display: flex;
     align-items: center;
-    padding: 0.5rem;
-    width: 100%;
+    justify-content: space-between;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: var(--border-radius);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-item:hover {
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+    border-color: #ddd;
 }
 
 .task-text {
-    width: 50%;
+    flex: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-weight: 500;
 }
 
+/* Grupos de Botões e Inputs */
 .button-group {
     display: flex;
     gap: 0.5rem;
-    width: 50%;
-    justify-content: flex-end;
 }
 
 .input-group {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     width: 100%;
 }
 
 .input-group input {
     flex: 1;
-    padding: 0.5rem;
+    padding: 0.75rem;
     font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: border-color 0.3s;
 }
 
-.input-group button {
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* Botões Gerais */
+button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
     cursor: pointer;
+    border: none;
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-weight: 600;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* Botão Principal */
+#addTaskBtn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#addTaskBtn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Botões dentro das tarefas (Ex: Concluir/Excluir)*/
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-complete {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-complete:hover {
+    background-color: #218838;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-top: auto; 
 }
