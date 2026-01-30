@@ -1,7 +1,7 @@
-import { tasks, initializeTasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './js/task-service.js';
-import { appConfig } from './js/app-config.js';
-import { createHelpButton, createAdvancedEditSection } from './js/ui-service.js';
-import { applyBrandingToCSS } from './js/branding-service.js';
+import { tasks, initializeTasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './src/task-service.js';
+import { appConfig } from './src/app-config.js';
+import { createHelpButton, createAdvancedEditSection } from './src/ui-service.js';
+import { applyBrandingToCSS } from './src/branding-service.js';
 
 // ===== ELEMENTOS DOM ======
 const taskInput = document.getElementById('taskInput');
