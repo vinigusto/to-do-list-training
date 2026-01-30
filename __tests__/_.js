@@ -4,14 +4,14 @@ jest.mock('../js/storage-service.js', () => ({
   loadTasks: jest.fn(() => [])
 }));
 
-import { saveTasks, loadTasks } from '../js/storage-service.js';
+import { saveTasks, loadTasks } from '../src/storage-service.js';
 import {
   addTaskToArray,
   deleteTaskFromArray,
   toggleTaskStatus,
   getTasks,
   clearTasks
-} from '../js/task-service.js';
+} from '../src/task-service.js';
 
 // TESTES UNITÁRIOS
 describe('task-service', () => {
