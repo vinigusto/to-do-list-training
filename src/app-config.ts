@@ -1,4 +1,39 @@
-export const appConfig = {
+export interface AppFeatures {
+    useExternalApi: boolean;
+    helpButton: boolean;
+    advancedEdit: boolean;
+}
+
+export interface AppInfo {
+    version: string;
+    name: string;
+}
+
+export interface Branding {
+    roundness: string;
+    primaryColor: string;
+    primaryHover: string;
+    successColor: string;
+    secondaryColor: string;
+    bgColor: string;
+    cardBg: string;
+    textColor: string;
+    textLight: string;
+    borderRadius: string;
+    fontFamilyAlt: string;
+    shadowSm: string;
+    shadowMd: string;
+    fontFamily: string;
+}
+
+export interface AppConfig {
+    appName: string;
+    features: AppFeatures;
+    app: AppInfo;
+    branding: Branding;
+}
+
+export const AppConfig = {
     appName: 'To-Do List App',
 
     features: {

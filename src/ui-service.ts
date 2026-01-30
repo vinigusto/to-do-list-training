@@ -1,14 +1,13 @@
-import { appConfig } from './app-config.js';
+import { AppConfig } from './app-config.js';
 
-function createHelpButton(headerActionsElement) {
-    const helpBtn = document.createElement('button');
+function createHelpButton(headerActionsElement: HTMLElement) {
+    const helpBtn = document.createElement('button') as HTMLButtonElement;
     helpBtn.className = 'btn btn-help';
     helpBtn.innerText = 'Ajuda';
     helpBtn.style.marginBottom = '10px';
 
     helpBtn.onclick = () => {alert(`
-        To-Do List v${appConfig.app.version}
-
+        To-Do List v${AppConfig.app.version}
         Como usar:
         1. Digite sua tarefa no campo acima
         2. Clique em "Adicionar Tarefa"
@@ -19,8 +18,8 @@ function createHelpButton(headerActionsElement) {
     headerActionsElement.appendChild(helpBtn);
 };
 
-function createAdvancedEditSection(advancedSectionElement) {
-    const section = document.createElement('div');
+function createAdvancedEditSection(advancedSectionElement: HTMLElement) {
+    const section = document.createElement('div') as HTMLDivElement;
     section.className = 'advanced-edit-panel';
     section.innerHTML = `
         <h3>Edição Avançada</h3>
