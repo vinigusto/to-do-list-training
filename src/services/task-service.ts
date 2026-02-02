@@ -1,19 +1,23 @@
-import { saveTasks, loadTasks } from './storage-service.js';
-import { apiService } from './api-service.js';
-import { appConfig } from './app-config.js';
+import { saveTasks, loadTasks } from './storage-service';
+import { apiService } from './api-service';
+import { AppConfig } from './app-config';
+import { Task } from '../models/task.model';
+import { ApiTask } from '../models/api-task.model';
 
-export const tasks = [];
+export const tasks: Task[] = [];
 
-export async function initializeTasks() {
-    const initialTasks = [];
-    if(appConfig.features.useExternalApi) {
+export async function initializeTasks(): Promise<void> {
+    const initialTasks: Task[] = [];
+    if(AppConfig.features.useExternalApi) {
         try {
             const apiTasks = await apiService.fetchTasks();
-            initialTasks.push(...apiTasks.map(task => ({
+
+            initialTasks.push(...apiTasks.map((task: ApiTask) => ({
                 id: task.id,
                 text: task.todo ?? task.title ?? 'Tarefa sem descrição',
                 completed: task.completed
             })));
+
         } catch (error) {
             console.error('Erro ao buscar tarefas da API externa:', error);
             const storedTasks = loadTasks();
@@ -27,7 +31,7 @@ export async function initializeTasks() {
     saveTasks(tasks);
 }
 
-export function addTaskToArray(text) {
+export function addTaskToArray(text: string): Task | undefined {
     if (!text || text.trim() === '') {
         return undefined;
     }
@@ -44,31 +48,35 @@ export function addTaskToArray(text) {
     return newTask;
 }
 
-export function deleteTaskFromArray(id) {
+export function deleteTaskFromArray(id: number): 0 | 1 {
     const index = tasks.findIndex(task => task.id === id);
+
     if (index > -1) {
         tasks.splice(index, 1);
         saveTasks(tasks);
         return 1;
     }
+
     return 0;
 }
 
-export function toggleTaskStatus(id) {
+export function toggleTaskStatus(id: number): 0 | 1 {
     const task = tasks.find(task => task.id === id);
+
     if (task) {
         task.completed = !task.completed;
         saveTasks(tasks);
         return 1;
     }
+
     return 0;
 }
 
-export function getTasks() {
+export function getTasks(): Task[] {
     return tasks;
 }
 
-export function clearTasks() {
+export function clearTasks(): void {
     tasks.length = 0;
     saveTasks(tasks);
 }
