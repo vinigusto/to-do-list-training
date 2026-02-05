@@ -1,38 +1,40 @@
-import { tasks, initializeTasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './js/task-service.js';
-import { appConfig } from './js/app-config.js';
-import { createHelpButton, createAdvancedEditSection } from './js/ui-service.js';
-import { applyBrandingToCSS } from './js/branding-service.js';
+import { tasks, initializeTasks, addTaskToArray, deleteTaskFromArray, toggleTaskStatus } from './services/task-service';
+import { AppConfig } from './services/app-config';
+import { createHelpButton, createAdvancedEditSection } from './services/ui-service';
+import { applyBrandingToCSS } from './services/branding-service';
+import { Task } from './models/task.model';
+
 
 // ===== ELEMENTOS DOM ======
-const taskInput = document.getElementById('taskInput');
-const addTaskBtn = document.getElementById('addTaskBtn');
-const taskList = document.getElementById('taskList');
-const completedTaskList = document.getElementById('completedTaskList');
-const headerActions = document.getElementById('header-actions');
-const advancedSection = document.getElementById('advanced-section');
+const taskInput = document.getElementById('taskInput') as HTMLInputElement;
+const addTaskBtn = document.getElementById('addTaskBtn') as HTMLButtonElement;
+const taskList = document.getElementById('taskList') as HTMLUListElement;
+const completedTaskList = document.getElementById('completedTaskList') as HTMLUListElement;
+const headerActions = document.getElementById('header-actions') as HTMLElement;
+const advancedSection = document.getElementById('advanced-section') as HTMLElement;
 
 // ===== INICIALIZAR FEATURES ======
-function initializeFeatures() {
-    if (appConfig.features.helpButton) {
+function initializeFeatures(): void {
+    if (AppConfig.features.helpButton) {
         createHelpButton(headerActions);
     }
 
-    if (appConfig.features.advancedEdit) {
+    if (AppConfig.features.advancedEdit) {
         createAdvancedEditSection(advancedSection);
     }
 
-    console.log('Features ativadas:', appConfig.features);
+    console.log('Features ativadas:', AppConfig.features);
 }
 
 // ===== RENDERIZAÇÃO / LÓGICA DE TAREFAS ======
-function renderTasks() {
+function renderTasks(): void {
     taskList.innerHTML = '';
     completedTaskList.innerHTML = '';
 
     tasks.forEach(task => {
         const newTask = document.createElement('li');
         newTask.className = 'task-item flex-grid';
-        newTask.style.borderRadius = appConfig.branding.roundness;
+        newTask.style.borderRadius = AppConfig.branding.roundness;
 
         newTask.innerHTML = `
             <span class="task-text ${task.completed ? 'task-completed' : ''}">${task.text}</span>
@@ -52,10 +54,10 @@ function renderTasks() {
     setupEventListeners();
 }
 
-function setupEventListeners() {
+function setupEventListeners(): void {
     
     // Botões de Deletar
-    document.querySelectorAll('.btn-delete').forEach(btn => {
+    document.querySelectorAll<HTMLButtonElement>('.btn-delete').forEach(btn => {
         btn.addEventListener('click', () => {
             deleteTaskFromArray(Number(btn.dataset.id));
             renderTasks();
@@ -63,9 +65,9 @@ function setupEventListeners() {
     });
 
     // Botões de Completar
-    document.querySelectorAll('.btn-complete').forEach(btn => {
+    document.querySelectorAll<HTMLButtonElement>('.btn-complete').forEach(btn => {
         btn.addEventListener('click', () => {
-            if (appConfig.useExternalApi) {
+            if (AppConfig.features.useExternalApi) {
                 console.log('Enviando para API externa...');
             }
             toggleTaskStatus(Number(btn.dataset.id));
@@ -77,6 +79,7 @@ function setupEventListeners() {
 // Adicionar tarefa
 addTaskBtn.addEventListener('click', () => {
     const text = taskInput.value.trim();
+    
     if (text !== '') {
         addTaskToArray(text);
         taskInput.value = '';
@@ -87,7 +90,7 @@ addTaskBtn.addEventListener('click', () => {
 
 // ===== INICIALIZAÇÃO ======
 async function initializeApp(){
-    console.log(`Iniciando To-Do List v${appConfig.app.version}`);
+    console.log(`Iniciando To-Do List v${AppConfig.app.version}`);
     await initializeTasks();
     applyBrandingToCSS();
     initializeFeatures();
