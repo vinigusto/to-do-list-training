@@ -47,14 +47,20 @@ export class ApiService {
                 throw new Error(`Erro HTTP: ${response.status}`);
             }
 
-            // Corrige: acessa o array 'tasks' da resposta
-            const data: TasksApiResponse = await response.json();
+            // Corrige: aceita tanto 'tasks' quanto 'todos' como chave do array
+            const data = await response.json();
 
-            if (Array.isArray(data.tasks)) {
-                return data.tasks.slice(0, 4).map(mapApiTaskToTask);
+            const tasksArray = Array.isArray(data.tasks)
+                ? data.tasks
+                : Array.isArray(data.todos)
+                    ? data.todos
+                    : null;
+
+            if (Array.isArray(tasksArray)) {
+                return tasksArray.slice(0, 4).map(mapApiTaskToTask);
             }
-            
-            console.error('❌ ApiService: Resposta da API não contém array "tasks" válido.');
+
+            console.error('❌ ApiService: Resposta da API não contém array "tasks" ou "todos" válido.');
             return this.mockTasks.map(mapApiTaskToTask);
 
         } catch (error) {

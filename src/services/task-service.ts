@@ -3,6 +3,7 @@ import { apiService } from './api-service';
 import { AppConfig } from './app-config';
 import { Task } from '../models/task.model';
 import { ApiTask } from '../models/api-task.model';
+import { mapApiTaskToTask } from '../mappers/task.mapper';
 
 export const tasks: Task[] = [];
 
@@ -11,16 +12,10 @@ export async function initializeTasks(): Promise<void> {
     if(AppConfig.features.useExternalApi) {
         try {
             const apiTasks = await apiService.fetchTasks();
-
-            initialTasks.push(...apiTasks.map((task: ApiTask) => ({
-                id: task.id,
-                text: task.todo ?? task.title ?? 'Tarefa sem descrição',
-                completed: task.completed
-            })));
-
+            initialTasks.push(...apiTasks);
         } catch (error) {
             console.error('Erro ao buscar tarefas da API externa:', error);
-            const storedTasks = loadTasks();
+            const storedTasks = loadTasks(); 
             initialTasks.push(...storedTasks);
         }
     } else {

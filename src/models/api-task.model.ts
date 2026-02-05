@@ -1,6 +1,5 @@
 export interface ApiTask {
   id: number;
-  todo?: string;
-  title?: string;
+  todo: string;
   completed: boolean;
 }
