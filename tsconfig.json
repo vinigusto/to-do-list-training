@@ -4,11 +4,17 @@
     "module": "ESNext",
     "outDir": "./dist",
     "rootDir": "./src",
-    "strict": false,
-    "allowJs": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+
+    "allowJs": false,
     "checkJs": false,
+
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"]
 }

@@ -79,7 +79,6 @@ export class ApiService {
             : this.fetchMockTasks();
 
     }
-
 }
 
 export const apiService = new ApiService();
